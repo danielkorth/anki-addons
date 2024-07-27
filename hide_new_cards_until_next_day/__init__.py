@@ -61,11 +61,7 @@ def marker_tag_n(n: int) -> str:
 
 
 def remove_tags(nids: list, tags: str):
-    anki_versions = [int(x) for x in anki_version.strip().split(".")]
-    if anki_versions[0] == 2 and anki_versions[1] >= 1 and anki_versions[2] >= 45:
-        mw.col.tags.bulk_remove(nids, tags)
-    else:
-        mw.col.tags.bulk_update(nids, tags, "", False)
+    mw.col.tags.bulk_remove(nids, tags)
 
 
 def suspend_cards_v2(*args, **kargs) -> None:
@@ -187,7 +183,7 @@ gui_hooks.profile_will_close.append(marker_main)
 
 # create a new menu item
 action = QAction("Hide new cards until next day", mw)
-action.setShortcuts(QKeySequence("Ctrl+Alt+t"))
+action.setShortcut(QKeySequence("Ctrl+Alt+t"))
 
 # set it to call testFunction when it's clicked
 qconnect(action.triggered, marker_main)
